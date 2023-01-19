@@ -17,7 +17,7 @@ public class Util{
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "JavaPP114";
     private static final String USER = "root";
-    private static final String PASSWORD = "122100";
+    private static final String PASSWORD = "root";
 
 /**
  just Logger
