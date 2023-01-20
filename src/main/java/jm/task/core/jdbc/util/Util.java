@@ -1,13 +1,16 @@
 package jm.task.core.jdbc.util;
 
 import jm.task.core.jdbc.model.User;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.Environment;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.Properties;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -26,7 +29,7 @@ public class Util{
 /**
  just Logger
  */
-    private static Logger logger = Logger.getLogger("Util log");
+    private static final Logger logger = Logger.getLogger("Util log");
 
 /**
  Field and constructor for singleton realization
@@ -39,16 +42,37 @@ Pool of connections creating
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final Queue<ProxyConnection> givenAwayConnection;
     static final int POOL_SIZE = 4;
+
 /**
  Fields for hibernate
  */
+    private static SessionFactory sessionFactory;
 
-
-    /**
- Getter for making field URL private
+/**
+ Getters
  */
     public String getURL() {
         return URL;
+    }
+
+     public SessionFactory getSessionFactory(){
+        if (sessionFactory==null) {
+            try {
+                Properties properties = new Properties();
+                properties.put(Environment.DRIVER, DRIVER);
+                properties.put(Environment.URL, "jdbc:mysql://localhost/"+URL);
+                properties.put(Environment.USER, USER);
+                properties.put(Environment.PASS, PASSWORD);
+                properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
+                properties.put(Environment.SHOW_SQL, "false");
+                properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+                sessionFactory = new Configuration().setProperties(properties).addAnnotatedClass(User.class).buildSessionFactory();
+                logger.info("SessionFactory created successfully");
+            } catch (HibernateException e) {
+                logger.warning("SessionFactory was not created" + e.getMessage());
+            }
+        }
+        return sessionFactory;
     }
 
     private Util(){
