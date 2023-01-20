@@ -17,7 +17,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public UserDaoJDBCImpl() {
     }
-
+    @Override
     public void createUsersTable() throws SQLException {
         Connection connection = Util.getUtil().getConnection();
         System.out.println("Creating table... ");
@@ -39,7 +39,7 @@ public class UserDaoJDBCImpl implements UserDao {
             if (connection != null) {Util.getUtil().closeConnection(connection);}
         }
     }
-
+    @Override
     public void dropUsersTable() throws SQLException {
         Connection connection = Util.getUtil().getConnection();
         System.out.println("Dropping table... ");
@@ -56,7 +56,7 @@ public class UserDaoJDBCImpl implements UserDao {
             if (connection != null) {Util.getUtil().closeConnection(connection);}
         }
     }
-
+    @Override
     public void saveUser(String name, String lastName, byte age) throws SQLException {
         Connection connection = Util.getUtil().getConnection();
         PreparedStatement preparedStatement = null;
@@ -74,7 +74,7 @@ public class UserDaoJDBCImpl implements UserDao {
             if (connection != null) {Util.getUtil().closeConnection(connection);}
         }
     }
-
+    @Override
     public void removeUserById(long id) throws SQLException {
         Connection connection = Util.getUtil().getConnection();
         PreparedStatement preparedStatement = null;
@@ -90,7 +90,7 @@ public class UserDaoJDBCImpl implements UserDao {
             if (connection != null) {Util.getUtil().closeConnection(connection);}
         }
     }
-
+    @Override
     public List<User> getAllUsers() throws SQLException {
         Connection connection = Util.getUtil().getConnection();
         List<User> result = new ArrayList<>();
@@ -116,7 +116,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
         return result;
     }
-
+    @Override
     public void cleanUsersTable() throws SQLException {
         Connection connection = Util.getUtil().getConnection();
         PreparedStatement preparedStatement = null;

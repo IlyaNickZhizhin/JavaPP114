@@ -1,5 +1,9 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,7 +19,7 @@ public class Util{
  Minimum required fields for creating connection
  */
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "JavaPP114";
+    private static final String URL = "Testing";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
@@ -35,6 +39,10 @@ Pool of connections creating
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final Queue<ProxyConnection> givenAwayConnection;
     static final int POOL_SIZE = 4;
+/**
+ Fields for hibernate
+ */
+
 
     /**
  Getter for making field URL private
